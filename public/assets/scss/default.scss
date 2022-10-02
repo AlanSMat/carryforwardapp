@@ -1,0 +1,19 @@
+@import 'variables';
+@import 'spacing';
+@import 'containers';
+@import 'brand';
+@import 'text';
+
+//nsw-{property}-{sides}-{size}
+
+.nsw-blue {
+    color: #002664;
+}
+
+.nsw-green {
+    color: #00AA45;
+}
+
+.nsw-red {
+    color: #D7153A;
+}

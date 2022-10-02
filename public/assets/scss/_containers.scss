@@ -1,0 +1,46 @@
+.d-flex {
+    display: flex;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+table {
+
+    //.table-header {
+    width: 100%;
+
+    thead {
+        border-bottom: 2px solid $red-02;
+
+        tr {
+            th {
+                background-color: $blue-01;
+                color: #fff;
+            }
+        }
+    }
+
+    td {
+        border-bottom: 1px solid #999;
+
+        .nsw-form__input,
+        .nsw-form__select {
+            border: 1px solid #999;
+        }
+    }
+
+    tr:nth-child(even) {
+        td {
+            background: $grey-04
+        }
+    }
+
+    tr:nth-child(odd) {
+        td {
+            background: $grey-03;
+        }
+    }
+
+}
