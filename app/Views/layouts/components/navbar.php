@@ -10,7 +10,7 @@
                     </li>
                     <?php if(isset($_SESSION['userDetails'][0]['is_questionnaire_completed']) && $_SESSION['userDetails'][0]['is_questionnaire_completed'] == 1) : ?>
                     <li>
-                        <a href="/questionnaire/edit/<?= $_SESSION['principal_request_id'] ?>">Edit Question Responses</a>
+                        <a href="<?= site_url("/questionnaire/edit/" . $_SESSION['principal_request_id']) ?>">Edit Question Responses</a>
                     </li>
                     <?php endif ?>
                 </ol>

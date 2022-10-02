@@ -63,7 +63,8 @@ class Principal extends BaseController
             if($requestInformation['isquestionnarecompleted']) {    
 
                 // redirect to the request list page
-                return redirect()->to("request/list/" . $_SESSION['principal_request_id'] ."");
+                return redirect()->to("request/list/" . $_SESSION['principal_request_id'] ."")
+                                 ->with('info-message','Your request has been updated successfully');
             }
 
             // the questionnaire has not been completed for this request, redirect to the questionnaire index page
@@ -74,7 +75,8 @@ class Principal extends BaseController
             $this->_insertRequest();
 
             // redirect to the questionnaire index page
-            return redirect()->to("/questionnaire/index");
+            return redirect()->to("/questionnaire/index")
+                             ->with('info-message','Your request has been added successfully');
         }
 
     }
@@ -96,8 +98,7 @@ class Principal extends BaseController
 
         // email to the director
 
-        return redirect()->to("request/submitted")
-                         ->with('info','Your request has been submitted successfully');        
+        return redirect()->to("request/submitted");        
     }
 
     public function submitted() {

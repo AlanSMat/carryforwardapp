@@ -70,18 +70,19 @@ class Request extends BaseController
     public function update($id) 
     {
         $data = [
-            'request_rank' => $this->request->getPost("request_rank"),
-            'request_title' => $this->request->getPost("request_title"),
-            'fund_source' => $this->request->getPost("fund_source"),
+            'request_rank'         => $this->request->getPost("request_rank"),
+            'request_title'        => $this->request->getPost("request_title"),
+            'fund_source'          => $this->request->getPost("fund_source"),
             'expenditure_category' => $this->request->getPost("expenditure_category"),
-            'request_amount' => $this->request->getPost("request_amount"),
-            'request_reason' => $this->request->getPost("request_reason")
+            'request_amount'       => $this->request->getPost("request_amount"),
+            'request_reason'       => $this->request->getPost("request_reason")
         ];
 
         $this->builder->where('id', $id);
         $this->builder->update($data);
        
-        return redirect()->to("request/list/" . $_SESSION['principal_request_id'] ."");
+        return redirect()->to("request/list/" . $_SESSION['principal_request_id'] ."")
+                         ->with('info-message','Request updated successfully');
     }
 
     public function submitted() {
@@ -93,18 +94,19 @@ class Request extends BaseController
         $requestInformationModel = new RequestInformationModel;
         
         $requestInformationModel->insert([
-            'principal_request_id' => $this->request->getPost('principal_request_id'),
+            'principal_request_id'   => $this->request->getPost('principal_request_id'),
             'schools_information_id' => $this->request->getPost('schools_information_id'),
             'principal_network_code' => $_SESSION['userDetails'][0]['principal_network_code'],
-            'request_rank' => $this->request->getPost("request_rank"),
-            'request_title' => $this->request->getPost("request_title"),
-            'fund_source' => $this->request->getPost("fund_source"),
-            'expenditure_category' => $this->request->getPost("expenditure_category"),
-            'request_amount' => $this->request->getPost("request_amount"),
-            'request_reason' => $this->request->getPost("request_reason")
+            'request_rank'           => $this->request->getPost("request_rank"),
+            'request_title'          => $this->request->getPost("request_title"),
+            'fund_source'            => $this->request->getPost("fund_source"),
+            'expenditure_category'   => $this->request->getPost("expenditure_category"),
+            'request_amount'         => $this->request->getPost("request_amount"),
+            'request_reason'         => $this->request->getPost("request_reason")
         ]);
         
-        return redirect()->to("request/list/" . $_SESSION['principal_request_id'] ."");
+        return redirect()->to("request/list/" . $_SESSION['principal_request_id'] ."")
+                         ->with('info-message', 'Request created successfully');;
     }
 
 

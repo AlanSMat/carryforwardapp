@@ -27,9 +27,9 @@
 
         //principal network code 25997
         //DIRECTOR
-        $emailAddress = 'jeremy@jones.com'; 
+        //$emailAddress = 'jeremy@jones.com'; 
 
-        //$emailAddress = 'justin.briggs@det.nsw.edu.au';
+        $emailAddress = 'justin.briggs@det.nsw.edu.au';
         //$emailAddress = 'maree.sumpton@det.nsw.edu.au';
         //$emailAddress = 'christopher.robertson@det.nsw.edu.au';
 

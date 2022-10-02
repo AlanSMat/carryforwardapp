@@ -6,6 +6,19 @@
 
 <?= form_open('request/create') ?>
     <div class="nsw-m-bottom-sm" tabindex="0">
+
+        <?php if(session()->has('info-message')) : ?>
+            <div class="info-message" style="background-color: light-green">
+                <?php echo session('info-message'); ?>
+            </div>
+        <?php endif ?>
+
+        <?php if(session()->has('warning-message')) : ?>
+            <div class="warning-message">
+                <?php echo session('warning-message'); ?>
+            </div>
+        <?php endif ?>
+
         <table>
             <thead>
                 <tr>
