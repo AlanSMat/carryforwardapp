@@ -9,22 +9,27 @@
         <table>
             <thead>
                 <tr>
-                    <th width="5%">Rank</th>
-                    <th width="35%">Request Short Title</th>
-                    <th colspan="2" width="60%">Request Amount</th>
+                    <th colspan="4">Request List</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($requestInformation as $request): ?>
+                <tr>
+                    <td width="15%" class="school-title-header" width="25%">Rank</td>
+                    <td width="30%" class="school-title-header" width="20%">Request Title</td>
+                    <td width="55%" class="school-title-header" colspan="2" width="30%">Request Amount</td>
+                </tr>
+                <?php 
+                    $totalAmount = 0;
+                    foreach($request_information as $request): ?>
                 <tr>
                     <td>
-                        <?php echo $request->requestrank ?>
+                        <?php echo $request->request_rank ?>
                     </td>
                     <td>
-                        <?php echo $request->requesttitle ?>
+                        <?php echo $request->request_title ?>
                     </td>
                     <td>
-                        $<?php echo $request->requestamount ?>
+                        $<?php echo $request->request_amount ?>
                     </td>
                     <td>
                         <div style="display:flex;justify-content:end;space-around">
@@ -34,18 +39,40 @@
                         </div>
                     </td>
                 </tr>
-                <?php endforeach; ?>
-
+                <?php 
+                    $totalAmount = $totalAmount + $request->request_amount;
+                    endforeach; 
+                ?>
+                <tr style="background-color:">
+                    <td class="total-bar"></td>
+                    <td class="total-bar" style="text-align:right"><b>Total Amount:</b></td>
+                    <td class="total-bar"><b>$<?php echo $totalAmount ?></b></td>
+                    <td class="total-bar" colspan="2"></td>
+                </tr>
             </tbody>
         </table>
     </div>
     <div class="nsw-m-bottom-md">
-        <?php if (isset($requestInformation[0]->principalrequestdetailsid)) : ?>
-            <a href="/principal/submitrequest/<?php echo $requestInformation[0]->principalrequestdetailsid ?>" class="nsw-button nsw-button--danger">Submit for Approval</a>
+        <?php if (isset($request_information[0]->principal_request_id)) : ?>
+            <a href="#" id="submit-for-approval" class="nsw-button nsw-button--danger">Submit for Approval</a>
         <?php endif ?>
-        <a href="/request/add" class="nsw-button nsw-button--danger">Add New</a>
+        <a href="/request/add" class="nsw-button nsw-button--danger">Add New Request</a>
     </div>
-        
 </form>
+
+<?php
+    if (isset($request_information[0]->principal_request_id)) :
+        // outputs modal
+        echo view_cell('App\Libraries\Components::modal',[
+                    // buttonOpenModalCssId, is the id for the button that opens the modal on the CURRENT page
+                    'buttonOpenModalCssId' => 'submit-for-approval',
+                    'modalMainTitle' => 'Submit for Approval?',
+                    'modalText' => 'This request will now be submitted to your director for approval',
+                    'buttonModalSubmitTitle' => 'Proceed',
+                    'buttonModalRoute' => "/principal/submitrequest/" . $request_information[0]->principal_request_id . "",
+                    'buttonCloseId' => ''
+        ]); 
+    endif;
+?>
 
 <?= $this->endSection() ?>

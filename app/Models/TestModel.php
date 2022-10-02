@@ -8,5 +8,5 @@ class TestModel extends \CodeIgniter\Model
     protected $primaryKey = 'id';
     protected $returnType = 'array';
     
-    protected $allowedFields = ['schoolcode','schoolname','principalname','principalemail'];
+    protected $allowedFields = ['school_code','school_name','principalname','principalemail'];
 }

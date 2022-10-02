@@ -50,7 +50,7 @@
                                 </p>
                                 <p>
                                     <label class="nsw-form__label" for="form-textarea-<?= $question['id'] ?>">Additional Information</label>
-                                    <textarea class="nsw-form__input" name="qnresponse_principalcomments_<?= $question['id'] ?>" id="form-textarea-<?= $question['id'] ?>" aria-describedby="form-textarea-<?= $question['id'] ?>-helper-text"></textarea>
+                                    <textarea class="nsw-form__input" name="qnresponse_principal_comments_<?= $question['id'] ?>" id="form-textarea-<?= $question['id'] ?>" aria-describedby="form-textarea-<?= $question['id'] ?>-helper-text"></textarea>
                                     <span class="nsw-form__helper" id="form-textarea-<?= $question['id'] ?>-helper-text">Maximum 500 characters</span>
                                 </p>
                             </td>

@@ -12,19 +12,19 @@ class DirectorDetailsSeeder extends Seeder
             [
              'directorname' => 'Joe Smith',
              'directoremail' => 'joe@smith.com',
-             'schoolperformancedirectorate' => 'Rural North',
+             'principal_network_code' => '25991',
              'region' => 'Hunter/Central Coast'
             ],
             [
              'directorname' => 'Jennifer Hughes',
              'directoremail' => 'jennifer@hughes.com',
-             'schoolperformancedirectorate' => 'Regional North',
+             'principal_network_code' => '26002',
              'region' => 'New England'
             ],
             [
              'directorname' => 'Jason George',
              'directoremail' => 'jason@george.com',
-             'schoolperformancedirectorate' => 'Metropolitan South',
+             'principal_network_code' => '25997',
              'region' => 'Sydney'
             ],
             

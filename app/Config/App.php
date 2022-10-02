@@ -24,7 +24,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $baseURL = 'http://localhost:8080/CODEIGNITER/carryforwardapp/public/';
+    public $baseURL = 'http://cfa.localhost:8001/';
 
     /**
      * --------------------------------------------------------------------------
@@ -109,7 +109,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $appTimezone = 'America/Chicago';
+    public $appTimezone = 'Australia/Sydney';
 
     /**
      * --------------------------------------------------------------------------

@@ -7,8 +7,8 @@ class Principal extends BaseController
     public function __construct() 
     {
         $this->db = \Config\Database::connect();
-        //dd($this->db->get('PrincipalRequestDetails'));
-        $this->builder = $this->db->table('PrincipalRequestDetails');
+        //dd($this->db->get('principal_request'));
+        $this->builder = $this->db->table('principal_request');
     }
 
     public function index()
@@ -18,15 +18,15 @@ class Principal extends BaseController
 
     public function getExistingRequest() 
     {
-        $result = $this->builder->where('principalemail', $_SESSION['userDetails'][0]['principalemail'])
-                                ->where('iscompleted',0)
+        $result = $this->builder->where('principal_email', $_SESSION['userDetails'][0]['principal_email'])
+                                ->where('is_completed',0)
                                 ->get();
-
+        
         if($result->getNumRows()) 
         {
             $existingRequestInformation = [
                 'id' => $result->getResult()[0]->id,
-                'isquestionnarecompleted' => $result->getResult()[0]->isquestionnairecompleted
+                'isquestionnarecompleted' => $result->getResult()[0]->is_questionnaire_completed
             ];
 
             return $principlaRequestId = $existingRequestInformation;    
@@ -38,17 +38,18 @@ class Principal extends BaseController
 
     private function _insertRequest() {
 
-        $principalRequestDetailsModel = new \App\Models\PrincipalRequestDetailsModel;
+        $principalRequestModel = new \App\Models\PrincipalRequestModel;
 
-        $principalRequestDetailsModel->insert([
-            'schoolcode'     => $_SESSION['userDetails'][0]['schoolcode'],
-            'schoolname'     => $_SESSION['userDetails'][0]['schoolname'],
-            'principalname'  => $_SESSION['userDetails'][0]['principalname'],
-            'principalemail' => $_SESSION['userDetails'][0]['principalemail'],
-            'directorate'    => $_SESSION['userDetails'][0]['schoolperformancedirectorate']
+        $principalRequestModel->insert([
+            'schools_information_id' => $_SESSION['userDetails'][0]['schools_information_id'],
+            'school_code'            => $_SESSION['userDetails'][0]['school_code'],
+            'school_name'            => $_SESSION['userDetails'][0]['school_name'],
+            'principal_name'         => $_SESSION['userDetails'][0]['principal_name'],
+            'principal_email'        => $_SESSION['userDetails'][0]['principal_email'],
+            'principal_network_code' => $_SESSION['userDetails'][0]['principal_network_code'],
         ]);
 
-        $_SESSION['principalrequestdetailsid'] = $principalRequestDetailsModel->insertID;
+        $_SESSION['principal_request_id'] = $principalRequestModel->insertID;
     }
 
     public function createRequest()
@@ -56,13 +57,13 @@ class Principal extends BaseController
         // check to see if we have an existing request
         if($requestInformation = $this->getExistingRequest()) 
         {
-            $_SESSION['principalrequestdetailsid'] = $requestInformation['id'];    
+            $_SESSION['principal_request_id'] = $requestInformation['id'];    
 
             // if the questionnaire has already been completed for this request
             if($requestInformation['isquestionnarecompleted']) {    
 
                 // redirect to the request list page
-                return redirect()->to("request/list/" . $_SESSION['principalrequestdetailsid'] ."");
+                return redirect()->to("request/list/" . $_SESSION['principal_request_id'] ."");
             }
 
             // the questionnaire has not been completed for this request, redirect to the questionnaire index page
@@ -78,19 +79,19 @@ class Principal extends BaseController
 
     }
 
-    public function getSchoolInformationByPrincipalEmail($principalEmail) {
-        $schoolsModel = new \App\Models\SchoolsModel;
+    public function getSchoolInformationByPrincipalEmail($principal_Email) {
+        $schoolsModel = new \App\Models\SchoolsInformationModel;
 
-        return $schoolsModel->where('principalEmail', $principalEmail)->findAll();
+        return $schoolsModel->where('principal_email', $principal_Email)->findAll();
     }
 
     public function submitrequest($id) {
 
-        $principalRequestDetailsModel = new \App\Models\PrincipalRequestDetailsModel;
+        $principalRequestModel = new \App\Models\PrincipalRequestModel;
 
         // set is completed flag
-        $principalRequestDetailsModel->update($id, [
-            'iscompleted' => '1'
+        $principalRequestModel->update($id, [
+            'is_completed' => '1'
         ]);
 
         // email to the director
@@ -101,14 +102,5 @@ class Principal extends BaseController
 
     public function submitted() {
         return view("request/submitted");
-    }
-
-    public function edit($id) 
-    {
-        $principalRequestDetailsModel = new \App\Models\PrincipalRequestDetailsModel;
-        
-        $result = $principalRequestDetailsModel->find($id);
-
-        dd($result);
     }
 }

@@ -29,10 +29,10 @@ class Questionnaire extends Migration
         ]);
 
         $this->forge->addPrimaryKey('id');
-        $this->forge->createTable('Questionnaire');
+        $this->forge->createTable('questionnaire');
     }
 
     public function down() {
-        $this->forge->dropTable('Questionnaire');
+        $this->forge->dropTable('questionnaire');
     }
 }

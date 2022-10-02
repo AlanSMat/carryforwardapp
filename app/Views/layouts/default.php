@@ -1,6 +1,11 @@
 <?php 
 $session = \Config\Services::session();
 $session->start();
+
+if(!$session->__isset('isLoggedIn')) 
+{
+    
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,11 +22,11 @@ $session->start();
 </head>
 <body>
     <?php
-        //$_SESSION['userDetails'][0]['schoolname']
-        echo view_cell('App\Libraries\Components::header',[
+    echo view_cell('App\Libraries\Components::header',[
         'dashboard_title_left' => 'Principal Dashboard',
-        'dashboard_title_right' => $_SESSION['userDetails'][0]['schoolname']
-    ]) ?>
+        'dashboard_title_right' => $_SESSION['userDetails'][0]['school_name']
+    ]); 
+    ?>
     <!-- <main class="nsw-layout__main"> -->
     <div class="nsw-m-top-md">
         <?= $this->renderSection('content') ?>

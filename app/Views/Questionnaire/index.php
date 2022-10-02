@@ -42,7 +42,7 @@
                             </p>
                             <p>
                                 <label class="nsw-form__label" for="form-textarea-<?= $question['id'] ?>">Additional Information</label>
-                                <textarea class="nsw-form__input" name="principalcomments[]" id="form-textarea-<?= $question['id'] ?>" aria-describedby="form-textarea-<?= $question['id'] ?>-helper-text"><?php isset($question['principalcomments']) ? print $question['principalcomments'] :  print '' ;?></textarea>
+                                <textarea class="nsw-form__input" name="principal_comments[]" id="form-textarea-<?= $question['id'] ?>" aria-describedby="form-textarea-<?= $question['id'] ?>-helper-text"><?php isset($question['principal_comments']) ? print $question['principal_comments'] :  print '' ;?></textarea>
                                 <span class="nsw-form__helper" id="form-textarea-<?= $question['id'] ?>-helper-text">Maximum 500 characters</span>
                             </p>
                         </td>

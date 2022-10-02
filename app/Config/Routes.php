@@ -37,45 +37,60 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Auth::index');
 
-$routes->get('/principal/index', 'Principal::index');
-$routes->get('/principal/createRequest', 'Principal::createRequest');
-$routes->get('/principal/edit/(:num)', 'Principal::edit/$1');
-$routes->get('/principal/submitrequest/(:num)', 'Principal::submitRequest/$1');
-$routes->get('/principal/submitted', 'Request::submitted');
+$routes->group('principal', static function ($routes) {
+    $routes->get('index', 'Principal::index');
+    $routes->get('/', 'Principal::index');
+    $routes->get('createRequest', 'Principal::createRequest');
+    $routes->get('edit/(:num)', 'Principal::edit/$1');
+    $routes->get('submitrequest/(:num)', 'Principal::submitRequest/$1');
+    $routes->get('submitted', 'Request::submitted');
+    $routes->get('test', 'Principal::test');
+    $routes->get('questionnaire/index', 'Questionnaire::index');
+});
 
-$routes->get('/principal/test', 'Principal::test');
+$routes->group('questionnaire', static function ($routes) {
+    $routes->get('index', 'Questionnaire::index');
+    $routes->get('edit/(:num)', 'Questionnaire::edit/$1');
+    $routes->post('update/(:num)', 'Questionnaire::update/$1');
+    $routes->get('/','Questionnaire::index');
+    $routes->post('save', 'Questionnaire::save');
+});
 
-$routes->get('/principal/questionnaire/index', 'Questionnaire::index');
+$routes->group('request', static function ($routes) {
+    $routes->get('index', 'Request::index');
+    $routes->get('add', 'Request::add');
+    $routes->get('edit/(:num)', 'Request::edit/$1');
+    $routes->post('update/(:num)', 'Request::update/$1');
+    $routes->post('create', 'Request::create');
+    $routes->get('list/(:num)', 'Request::list/$1');
+    $routes->get('show/(:num)', 'Request::show/$1');
+    $routes->get('submitted', 'Request::submitted');
+});
 
-$routes->get('/questionnaire/index', 'Questionnaire::index');
-$routes->get('/questionnaire/edit/(:num)', 'Questionnaire::edit/$1');
-$routes->post('/questionnaire/update/(:num)', 'Questionnaire::update/$1');
-$routes->get('/questionnaire','Questionnaire::index');
-$routes->post('/questionnaire/save', 'Questionnaire::save');
+$routes->group('director', static function ($routes) {
+    $routes->get('index', 'Director::index');
+    $routes->get('show/(:num)', 'Director::show/$1');
+    $routes->get('delSignOff/(:num)', 'Director::delSignOff/$1');
+    $routes->get('principalQuestionResponses/(:num)', 'Questionnaire::getQuestionResponsesByPrincipalRequestId/$1');
+    $routes->get('schoolsListByDirectorate', 'Director::getSchoolsListByDirectorate');
+    $routes->post('processrequest/(:num)', 'Director::processRequest/$1');
+});
 
-$routes->get('/request/index', 'Request::index');
-$routes->get('/request/add', 'Request::add');
-$routes->get('/request/edit/(:num)', 'Request::edit/$1');
-$routes->post('/request/update/(:num)', 'Request::update/$1');
-$routes->post('/request/create', 'Request::create');
-$routes->get('/request/list/(:num)', 'Request::list/$1');
-$routes->get('/request/show/(:num)', 'Request::show/$1');
+$routes->group('corporate', static function ($routes) {
+    $routes->get('index', 'Corporate::index');
+    $routes->get('show/(:num)', 'Corporate::show/$1');
+    $routes->get('requestList/(:num)', 'Corporate::requestList/$1');
+});
 
-$routes->get('/request/submitted', 'Request::submitted');
+$routes->get('/schoolsinfo', 'SchoolsInformation::index');
 
-$routes->get('/corporate', 'Corporate::index');
-$routes->get('/corporate/index', 'Corporate::index');
-$routes->get('/corporate/show/(:num)', 'Corporate::show/$1');
-
-$routes->get('/director', 'Director::index');
-$routes->get('/director/index', 'Director::index');
-$routes->get('/director/show/(:num)', 'Director::show/$1');
-$routes->post('/director/processrequest/(:num)', 'Director::processRequest/$1');
-
-$routes->get('/data/importcsv', 'Data::importcsv');
+// miscellaneous routes
+$routes->get('/data/importcsv', 'Data::importSchoolsInformationFromCSV');
 $routes->get('/timestamp', 'Migrate::timestamp');
 $routes->get('/migrate', 'Migrate::index');
 $routes->get('/seed', 'Seed::index');
+
+
 
 /*
  * --------------------------------------------------------------------

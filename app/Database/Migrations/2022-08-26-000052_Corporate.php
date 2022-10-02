@@ -29,7 +29,7 @@ class Corporate extends Migration
         ]);
 
         $this->forge->addPrimaryKey('id');
-        $this->forge->createTable('corporatedetails');
+        $this->forge->createTable('corporate_information');
     }
 
     public function down()

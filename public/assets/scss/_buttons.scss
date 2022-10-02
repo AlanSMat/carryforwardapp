@@ -1,0 +1,90 @@
+// .btn {
+//     display: inline-block;
+    // font-weight: 400;
+    // color: #212529;
+    // text-align: center;
+    // vertical-align: middle;
+    // -webkit-user-select: none;
+    // -moz-user-select: none;
+    // -ms-user-select: none;
+    // user-select: none;
+    // background-color: transparent;
+    // border: 1px solid transparent;
+    // padding: 0.375rem 0.75rem;
+    // font-size: 1rem;
+    // line-height: 1.5;
+    // border-radius: 0.25rem;
+    //transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+//     cursor: pointer;
+//     text-decoration: none;
+
+//     &-danger {
+//         padding: 0.375rem 0.75rem;
+//         color: #fff;
+//         background-color: #CE0037;
+//         border: 2px solid #CE0037;
+//     }
+
+//     &-btn-secondary {
+//         color: #fff;
+//         background-color: #6c757d;
+//         border-color: #6c757d;
+//     }
+
+// }
+
+
+
+.nsw-button {
+    font-weight: 400;
+    // font-size: var(--nsw-font-size-sm-mobile);
+    // line-height: var(--nsw-line-height-sm-mobile);
+    // border-radius: var(--nsw-border-radius);
+    // font-weight: var(--nsw-font-bold);
+    // border: 2px solid transparent;
+    // white-space: normal;
+    padding: 0.375rem 1rem;
+    cursor: pointer;
+    // -webkit-appearance: none;
+    text-decoration: none;
+    // -webkit-font-smoothing: antialiased;
+    text-align: center;
+    vertical-align: middle;
+    // -webkit-user-select: none;
+    // -moz-user-select: none;
+    // -ms-user-select: none;
+    user-select: none;
+    display: inline-block;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    border-radius: 0.25rem;
+
+    &--danger {
+        background-color: $red-02;
+        &:hover {
+            background-color: var(--nsw-white);    
+            border-color: $red-02;
+            color: $red-02;
+        }
+    }
+
+    &--dark-outline-solid, .nsw-section--invert .nsw-button--dark-outline-solid {
+        color: var(--nsw-brand-dark);
+        background-color: var(--nsw-white);
+        border-color: var(--nsw-brand-dark);
+    }
+    
+    &--danger-outline-solid {
+        color: $red-02;
+        background-color: #fff;
+        border-color: $red-02;
+        &:visited {
+            color: $red-02;
+        }
+    }
+
+    &--danger-outline-solid:hover {
+        color: #fff;
+        background-color: $red-02;
+        border-color: $red-02;
+    }
+}

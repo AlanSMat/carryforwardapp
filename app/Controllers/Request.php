@@ -10,8 +10,7 @@ class Request extends BaseController
     public function __construct() 
     {
         $this->db = \Config\Database::connect();
-        $query = $this->db->query('SELECT * FROM RequestInformation');
-        $this->builder = $this->db->table('RequestInformation');
+        $this->builder = $this->db->table('request_information');
     }
 
     public function index() 
@@ -25,23 +24,29 @@ class Request extends BaseController
 
     public function list($id) 
     {
-        $requestInformation = $this->builder->getWhere(['principalrequestdetailsid' => $id])->getResult();
+        // $requestInformation = $this->builder->getWhere(['principal_request_id' => $id])
+        //                                     ->orderBy('request_rank', 'ASC')
+        //                                     ->getResult();
         
+        $requestInformation = $this->builder->orderBy('request_rank', 'ASC')
+                                            ->getWhere(['principal_request_id' => $id])
+                                            ->getResult();;
+
         return view("request/list", [
-            'requestInformation' => $requestInformation]
+            'request_information' => $requestInformation]
         );
     }
 
     public function submitrequest($id) {
-        $requestInformation = $this->builder->getWhere(['principalrequestdetailsid' => $id])->getResult();
+        $requestInformation = $this->builder->getWhere(['principal_request_id' => $id])->getResult();
 
 
 
-        //$this->db->get('RequestInformation');
+        //$this->db->get('request_information');
 
-        // $data = array('isCompleted' => 1);
+        // $data = array('is_completed' => 1);
         // $this->db-where("id = $id");
-        // $this->db->update('PrincipalRequestDetails', $data);
+        // $this->db->update('principal_request', $data);
     }
 
     public function show($id) 
@@ -49,7 +54,7 @@ class Request extends BaseController
         $requestInformation = $this->builder->getWhere(['id' => $id])->getResult();
         
         return view("request/show", [
-            'requestInformation' => $requestInformation
+            'request_information' => $requestInformation
         ]);
     }
 
@@ -58,25 +63,25 @@ class Request extends BaseController
         $requestInformation = $this->builder->getWhere(['id' => $id])->getResult();
 
         return view("request/edit", [
-            'requestInformation' => $requestInformation]
+            'request_information' => $requestInformation]
         );
     }
 
     public function update($id) 
     {
         $data = [
-            'requestrank' => $this->request->getPost("requestrank"),
-            'requesttitle' => $this->request->getPost("requesttitle"),
-            'fundsource' => $this->request->getPost("fundsource"),
-            'expenditurecategory' => $this->request->getPost("expenditurecategory"),
-            'requestamount' => $this->request->getPost("requestamount"),
-            'requestreason' => $this->request->getPost("requestreason")
+            'request_rank' => $this->request->getPost("request_rank"),
+            'request_title' => $this->request->getPost("request_title"),
+            'fund_source' => $this->request->getPost("fund_source"),
+            'expenditure_category' => $this->request->getPost("expenditure_category"),
+            'request_amount' => $this->request->getPost("request_amount"),
+            'request_reason' => $this->request->getPost("request_reason")
         ];
 
         $this->builder->where('id', $id);
         $this->builder->update($data);
        
-        return redirect()->to("request/list/" . $_SESSION['principalrequestdetailsid'] ."");
+        return redirect()->to("request/list/" . $_SESSION['principal_request_id'] ."");
     }
 
     public function submitted() {
@@ -86,18 +91,20 @@ class Request extends BaseController
     public function create() 
     {
         $requestInformationModel = new RequestInformationModel;
-
+        
         $requestInformationModel->insert([
-            'principalrequestdetailsid' => $this->request->getPost('principalrequestdetailsid'),
-            'requestrank' => $this->request->getPost("requestrank"),
-            'requesttitle' => $this->request->getPost("requesttitle"),
-            'fundsource' => $this->request->getPost("fundsource"),
-            'expenditurecategory' => $this->request->getPost("expenditurecategory"),
-            'requestamount' => $this->request->getPost("requestamount"),
-            'requestreason' => $this->request->getPost("requestreason")
+            'principal_request_id' => $this->request->getPost('principal_request_id'),
+            'schools_information_id' => $this->request->getPost('schools_information_id'),
+            'principal_network_code' => $_SESSION['userDetails'][0]['principal_network_code'],
+            'request_rank' => $this->request->getPost("request_rank"),
+            'request_title' => $this->request->getPost("request_title"),
+            'fund_source' => $this->request->getPost("fund_source"),
+            'expenditure_category' => $this->request->getPost("expenditure_category"),
+            'request_amount' => $this->request->getPost("request_amount"),
+            'request_reason' => $this->request->getPost("request_reason")
         ]);
-
-        return redirect()->to("request/list/" . $_SESSION['principalrequestdetailsid'] ."");
+        
+        return redirect()->to("request/list/" . $_SESSION['principal_request_id'] ."");
     }
 
 

@@ -4,11 +4,11 @@ namespace App\Models;
 
 class QuestionnaireResponseModel extends \CodeIgniter\Model
 {
-    protected $table = 'principalquestionnaireresponse';
+    protected $table = 'principal_questionnaire_response';
 
-    protected $allowedFields = ['schoolcode',
-                                'schoolname',
+    protected $allowedFields = ['school_code',
+                                'school_name',
                                 'responseYN',
-                                'principalcomments',
-                                'directorcomments'];
+                                'principal_comments',
+                                'director_comments'];
 }

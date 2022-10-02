@@ -6,6 +6,11 @@ use App\Controllers\BaseController;
 
 class User extends BaseController
 {
+    public function __construct()
+    {
+        $this->session = \Config\Services::session();
+    }
+
     public function index()
     {
         //
@@ -19,58 +24,69 @@ class User extends BaseController
     // determines whether the user is an administrator, corporate, director or principal
     public function getUserDetails( $emailAddress ) 
     {
-        $principalDetails = new \App\Controllers\Principal;
+        $principalInformationModel = new \App\Controllers\Principal;
 
-        $isPrincipal = $principalDetails->getSchoolInformationByPrincipalEmail( $emailAddress );
+        $principalInformation = $principalInformationModel->getSchoolInformationByPrincipalEmail( $emailAddress );
 
-        if( $isPrincipal ) {
-            
-            $principalRequestDetailsModel = new \App\Models\PrincipalRequestDetailsModel;
+        if( $principalInformation ) 
+        {   
+            $principalRequestModel = new \App\Models\PrincipalRequestModel;
 
             // is there an existing request that hasn't been completed yet?
-            $existingRequest = $principalRequestDetailsModel->where('principalemail', $emailAddress)
-                                                            ->where('iscompleted',0)
-                                                            ->findAll();
-
-            $userDetails = $isPrincipal;
-
-            $_SESSION['principalrequestdetailsid'] = $existingRequest[0]['id'];
-
-            $userDetails[0]['principalrequestdetailsid'] = $existingRequest[0]['id'];
-            $userDetails[0]['userRole'] = 'principal';
-            $userDetails[0]['isquestionnairecompleted'] = 0;
+            $existingRequest = $principalRequestModel->where('principal_email', $emailAddress)
+                                                     ->orderBy('updatedat','desc')
+                                                     ->find();
             
-            if($existingRequest) {
-                $userDetails[0]['isquestionnairecompleted'] = $existingRequest[0]['isquestionnairecompleted'];
+            $schoolsInformationModel = new \App\Models\SchoolsInformationModel;
+            $schoolsInformationId = $schoolsInformationModel->where('principal_email', $emailAddress)->find()[0]['id'];
+
+            if(!$existingRequest) 
+            { 
+                $existingRequest[0]['id'] = 0;
+                $existingRequest[0]['is_questionnaire_completed'] = 0;
             }
+                                                                                                                        
+            $userDetails = $principalInformation;
 
-            return $userDetails;
+            $this->session->set('principal_request_id',$existingRequest[0]['id']);
+            
+            $userDetails[0]['principal_request_id'] = $existingRequest[0]['id'];
+            $userDetails[0]['userRole'] = 'principal';
+            $userDetails[0]['principal_network_code'] = $principalInformation[0]['principal_network_code'];
+            $userDetails[0]['is_questionnaire_completed'] = $existingRequest[0]['is_questionnaire_completed'];
+            $userDetails[0]['schools_information_id'] = $schoolsInformationId;
+            
+            $this->session->set('userDetails',$userDetails);
+            
+            return redirect()->to('principal/index');
         };
         
-        $directorDetails = new \App\Controllers\Director;
-        $isDirector = $directorDetails->getDirectorInformationByEmail( $emailAddress );
+        $directorInformationModel = new \App\Controllers\Director;
+        $directorInformation = $directorInformationModel->getDirectorInformationByEmail( $emailAddress );
         
-        if( $isDirector ) {
+        if( $directorInformation ) {
             
-            $userDetails = $isDirector;
+            $userDetails = $directorInformation;
             $userDetails[0]['userRole'] = 'director';
-                        
-            return $userDetails;
-
-        };
-
-        $corporateDetails = new \App\Controllers\Corporate;
-        $isCorporate = $corporateDetails->getCorporateInformationByEmail( $emailAddress );
-        
-        if( $isCorporate ) {
             
-            $userDetails = $isCorporate;
-            $userDetails[0]['userRole'] = 'corporate';
-                        
-            return $userDetails;
+            $this->session->set('userDetails',$userDetails);
+
+            return redirect()->to('director/index');
 
         };
 
-        //dd($principalModel->where('principalemail',$emailAddress));
+        $corporateInformationModel = new \App\Controllers\Corporate;
+        $corporateInformation = $corporateInformationModel->getCorporateInformationByEmail( $emailAddress );
+        
+        if( $corporateInformation ) {
+            
+            $userDetails = $corporateInformation;
+            $userDetails[0]['userRole'] = 'corporate';
+            
+            $this->session->set('userDetails',$userDetails);
+
+            return redirect()->to('corporate/index');
+
+        };
     }
 }

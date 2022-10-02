@@ -1,47 +1,52 @@
-<?= $this->extend("layouts/corporate") ?>
+<?= $this->extend("layouts/corporate/corporateLayout") ?>
 
 <?= $this->section('title') ?>Corporate Dashboard<?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-    <?= form_open("director/processrequest/" . $requestInformation[0]->id ."") ?>
-        <input type="hidden" name="status" />
-        <div class="nsw-table nsw-table--striped" tabindex="0">
-            <table width="100%">
+    <?= form_open("" . $request_information[0]->id ."") ?>
+        <table width="100%">
+            <thead class="table-header">
+                <th colspan="2"><?php echo $request_information[0]->school_name ?></th>
+            </thead>
+            <tbody>
                 <tr>
-                    <td width="50%"><label class="nsw-form__label" for="requestrank">Request Rank</label></td>
-                    <td width="50%"><?php echo $requestInformation[0]->requestrank ?></td>
+                    <td colspan="2" class="school-title-header"><?php echo $request_information[0]->request_title ?></td>
                 </tr>
                 <tr>
-                    <td><label class="nsw-form__label" for="requesttitle">Short Request Title</label></td>
-                    <td><?php echo $requestInformation[0]->requesttitle ?></td>
+                    <td width="50%"><label class="nsw-form__label" for="request_rank">Request Rank</label></td>
+                    <td width="50%"><?php echo $request_information[0]->request_rank ?></td>
                 </tr>
                 <tr>
-                    <td>
-                        <label class="nsw-form__label" for="fundsource">Leading Funding Source</label>
-                    </td>
-                    <td>
-                        <?php echo $requestInformation[0]->fundsource; ?>
-                    </td>
+                    <td><label class="nsw-form__label" for="request_title">Short Request Title</label></td>
+                    <td><?php echo $request_information[0]->request_title ?></td>
                 </tr>
                 <tr>
                     <td>
-                        <label class="nsw-form__label" for="expenditurecategory">Most relevant expenditure category</label>
+                        <label class="nsw-form__label" for="fund_source">Leading Funding Source</label>
                     </td>
                     <td>
-                        <?php echo $requestInformation[0]->expenditurecategory; ?>
+                        <?php echo $request_information[0]->fund_source; ?>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label class="nsw-form__label" for="requestamount">Request Amount</label> 
+                        <label class="nsw-form__label" for="expenditure_category">Most relevant expenditure category</label>
                     </td>
                     <td>
-                        $<?php echo $requestInformation[0]->requestamount ?>
+                        <?php echo $request_information[0]->expenditure_category; ?>
                     </td>
                 </tr>
                 <tr>
-                    <td><label class="nsw-form__label" for="requestreason">Reason for Request</label></td>
-                    <td><?php echo esc($requestInformation[0]->requestreason) ?></td>
+                    <td>
+                        <label class="nsw-form__label" for="request_amount">Request Amount</label> 
+                    </td>
+                    <td>
+                        $<?php echo $request_information[0]->request_amount ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label class="nsw-form__label" for="request_reason">Reason for Request</label></td>
+                    <td><?php echo esc($request_information[0]->request_reason) ?></td>
                 </tr>            
                 <tr>
                     <td>
@@ -49,20 +54,20 @@
                     </td>
                     <td>
                     <?php 
-                        switch ($requestInformation[0]->status) {
+                        switch ($request_information[0]->status) {
                             case 'pending' : 
                             ?>
-                            <div style="color:blue"><?= $requestInformation[0]->status ?></div>
+                            <div style="color:blue"><?= $request_information[0]->status ?></div>
                             <?php
                             break;
                             case 'approved' : 
                             ?>
-                            <div style="color:green"><?= $requestInformation[0]->status ?></div>
+                            <div style="color:green"><?= $request_information[0]->status ?></div>
                             <?php
                             break;
                             case 'declined' :  
                             ?>
-                            <div style="color:red"><?= $requestInformation[0]->status ?></div>
+                            <div style="color:red"><?= $request_information[0]->status ?></div>
                             <?php
                             break;
                         }
@@ -71,11 +76,12 @@
                 </tr>
                 <tr>
                     <td><label class="nsw-form__label" for="directorresponse">Additional Comments</label></td>
-                    <td><textarea class="nsw-form__input" name="directorresponse" id="directorresponse"></textarea></td>
+                    <td><textarea class="nsw-form__input" name="directorresponse" id="directorresponse" disabled></textarea></td>
                 </tr>
-            </table>
-        </div>
-        <div class="nsw-m-top-md nsw-m-bottom-md">
+            <tbody>
+        </table>
+        
+        <div style="padding-top: 10px" class="nsw-m-bottom-md">
             <a href="javascript:history.back()" class="nsw-button nsw-button--danger">Back to List</a>
         </div>
     </form>

@@ -16,12 +16,12 @@ class DirectorRequestResponse extends Migration
                 'unsigned' => true,
                 'auto_increment' => true
             ],            
-            'directordetailsid' => [
+            'director_details_id' => [
                 'type' => 'int',
                 'null' => false,
                 'constraint' => '10'
             ],            
-            'principalrequestdetailsid' => [
+            'principal_request_id' => [
                 'type' => 'int',
                 'null' => false,
                 'constraint' => '10'
@@ -48,10 +48,10 @@ class DirectorRequestResponse extends Migration
         ]);
 
         $this->forge->addPrimaryKey('id');
-        $this->forge->createTable('DirectorRequestResponse');
+        $this->forge->createTable('director_request_response');
     }
 
     public function down() {
-        $this->forge->dropTable('DirectorRequestResponse');
+        $this->forge->dropTable('director_request_response');
     }
 }

@@ -4,7 +4,7 @@ namespace App\Models;
 
 class CorporateDetailsModel extends \CodeIgniter\Model
 {
-    protected $table = 'corporatedetails';
+    protected $table = 'corporate_information';
     protected $primaryKey = 'id';
     protected $returnType = 'array';
     

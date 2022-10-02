@@ -6,7 +6,7 @@ class Home extends BaseController
     public function __construct() 
     {
         $this->db = \Config\Database::connect();
-        $this->builder = $this->db->table('PrincipalRequestDetails');
+        $this->builder = $this->db->table('principal_request');
     }
 
     public function index()

@@ -4,12 +4,12 @@ namespace App\Models;
 
 class PrincipalQuestionnaireResponseModel extends \CodeIgniter\Model
 {
-    protected $table = 'PrincipalQuestionnaireResponse';
+    protected $table = 'principal_questionnaire_response';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['principalrequestdetailsid',
+    protected $allowedFields = ['principal_request_id',
                                 'sortorder',
                                 'questionid',
                                 'responseYN',
-                                'principalcomments',
-                                'directorcomments'];
+                                'principal_comments',
+                                'director_comments'];
 }

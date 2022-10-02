@@ -26,26 +26,33 @@ class PrincipalQuestionnaireResponse extends Migration
                 'null' => true,
                 'default' => null
             ],
-            'principalrequestdetailsid' => [
+            'principal_request_id' => [
                 'type' => 'INT',
                 'null' => false,
                 'constraint' => '10'
             ],
-            'questionid' => [
+            'sortorder' => [
                 'type' => 'INT',
                 'null' => false,
-                'constraint' => '4'
+                'constraint' => '2',
+                'default' => 0
+            ],
+            'question_id' => [
+                'type' => 'INT',
+                'null' => false,
+                'constraint' => '2',
+                'default' => 0
             ],
             'responseYN' => [
                 'type' => 'VARCHAR',
                 'null' => false,
                 'constraint' => '3'
             ],
-            'principalcomments' => [
+            'principal_comments' => [
                 'type' => 'text',
                 'null' => true
             ],
-            'directorcomments' => [
+            'director_comments' => [
                 'type' => 'text',
                 'null' => true
             ]
@@ -53,10 +60,10 @@ class PrincipalQuestionnaireResponse extends Migration
         ]);
 
         $this->forge->addPrimaryKey('id');
-        $this->forge->createTable('PrincipalQuestionnaireResponse');
+        $this->forge->createTable('principal_questionnaire_response');
     }
 
     public function down() {
-        $this->forge->dropTable('PrincipalQuestionnaireResponse');
+        $this->forge->dropTable('principal_questionnaire_response');
     }
 }

@@ -8,9 +8,9 @@
                     <li>
                         <a href="/">Home</a>
                     </li>
-                    <?php if(isset($_SESSION['userDetails'][0]['isquestionnairecompleted']) && $_SESSION['userDetails'][0]['isquestionnairecompleted'] == 1) : ?>
+                    <?php if(isset($_SESSION['userDetails'][0]['is_questionnaire_completed']) && $_SESSION['userDetails'][0]['is_questionnaire_completed'] == 1) : ?>
                     <li>
-                        <a href="/questionnaire/edit/<?= $_SESSION['principalrequestdetailsid'] ?>">Edit Question Responses</a>
+                        <a href="/questionnaire/edit/<?= $_SESSION['principal_request_id'] ?>">Edit Question Responses</a>
                     </li>
                     <?php endif ?>
                 </ol>

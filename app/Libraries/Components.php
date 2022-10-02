@@ -8,9 +8,21 @@ class Components {
 
     public function header($params) {
         
-        $test['text'] = 'xx';
-
         return view('layouts/components/header',[
+            'params' => $params
+        ]);
+    }
+
+    public function modal($params) {
+        
+        return view('layouts/components/modal',[
+            'params' => $params
+        ]);
+    }
+
+    public function modalPrincipalInformation($params) {
+        
+        return view('layouts/components/modalPrincipalInformation',[
             'params' => $params
         ]);
     }

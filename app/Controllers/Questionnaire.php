@@ -12,11 +12,11 @@ class Questionnaire extends BaseController
     {
         $principalDetails = new Principal;
 
-        $isQuestionnaireCompleted = $principalDetails->getExistingRequest()['isquestionnarecompleted'];
+        $is_questionnaire_completed = $principalDetails->getExistingRequest()['isquestionnarecompleted'];
         
         return view('questionnaire/index', [
             'questions' => parent::getQuestions(),
-            'isQuestionnaireCompleted' => $isQuestionnaireCompleted
+            'is_questionnaire_completed' => $is_questionnaire_completed
         ]);
     }
 
@@ -28,34 +28,50 @@ class Questionnaire extends BaseController
         ]);
     }
 
-    public function edit($principalRequestDetailsId) 
+    private function _getQuestionsWithResponses($principal_request_id) 
     {
         $questions = parent::getQuestions();
         
         $db = \Config\Database::connect();
-        $builder = $db->table('principalrequestdetails');
+        $builder = $db->table('principal_request');
         $builder->select('*');
-        $builder->join('principalquestionnaireresponse', 'principalrequestdetails.id = principalquestionnaireresponse.principalrequestdetailsid');
-        $builder->where('principalrequestdetails.id', $_SESSION['principalrequestdetailsid']);
+        $builder->join('principal_questionnaire_response', 'principal_request.id = principal_questionnaire_response.principal_request_id');
+        $builder->where('principal_request.id', $principal_request_id);
         $query = $builder->get();
 
         $result = $query->getResultArray();
-        
+
         foreach($questions as $id => $question) {
-            // add the id from the principalquestionnaireresponse table
+            // add the id from the principal_questionnaire_response table
             $questions[$id]['id'] = $result[$id]['id'];
             // add the principal comments to the questions array so that they're available in the form
-            $questions[$id]['principalcomments'] = $result[$id]['principalcomments'];
+            $questions[$id]['principal_comments'] = $result[$id]['principal_comments'];
             // add the responseYN to the questions array so that it's available in the form
             $questions[$id]['responseYN'] = $result[$id]['responseYN'];
         }
-        
-        //$questions['isEdit'] = true;
+
+        return $questions;
+    }
+
+    public function edit($principal_request_id) 
+    {   
+        $questions = $this->_getQuestionsWithResponses($principal_request_id);
 
         return view('questionnaire/index', [
             'questions' => $questions,
             'isEdit' => true
         ]);
+    }
+
+    public function getQuestionResponsesByPrincipalRequestId($principal_request_id) 
+    {
+        $questions = $this->_getQuestionsWithResponses($principal_request_id);
+
+        return view('director/principalQuestionResponses', [
+            'questions' => $questions,
+            'isEdit' => true
+        ]);
+
     }
 
     public function save() 
@@ -70,22 +86,21 @@ class Questionnaire extends BaseController
                 $data['id'] = $_POST['id'][$i];
             }
 
-            $data['principalrequestdetailsid'] = $_SESSION['principalrequestdetailsid'];
+            $data['principal_request_id'] = $_SESSION['principal_request_id'];
             $data['sortorder'] = $_POST['sortorder'][$i];
-            $data['principalcomments'] = $_POST['principalcomments'][$i];
+            $data['principal_comments'] = $_POST['principal_comments'][$i];
             $data['responseYN'] = $_POST['responseYN'][$i];
 
             $principalQuestionnaireResponseModel->save($data);
         }
-
         //update isquestionnarecompleted flag
-        $principalRequestDetailsModel = new \App\Models\PrincipalRequestDetailsModel;
+        $principalRequestModel = new \App\Models\PrincipalRequestModel;
         
-        $data = ['isquestionnairecompleted' => '1'];
-        $principalRequestDetailsModel->update($_SESSION['principalrequestdetailsid'], $data);
+        $data = ['is_questionnaire_completed' => '1'];
+        $principalRequestModel->update($_SESSION['principal_request_id'], $data);
         
-        $_SESSION['userDetails'][0]['isquestionnairecompleted'] = 1;
+        $_SESSION['userDetails'][0]['is_questionnaire_completed'] = 1;
         
-        return redirect()->to('request/list/' . $_SESSION['principalrequestdetailsid']);
+        return redirect()->to('request/list/' . $_SESSION['principal_request_id']);
     }
 }

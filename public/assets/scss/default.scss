@@ -3,11 +3,25 @@
 @import 'containers';
 @import 'brand';
 @import 'text';
+@import 'colors';
+@import 'buttons';
 
-//nsw-{property}-{sides}-{size}
+.nsw-masthead {
+    background-color: $blue-01;
+}
+
+.nsw-footer {
+    &--dark {
+        background-color: $blue-01;
+    }
+
+    .nsw-footer__lower {
+        background-color: $blue-01;
+    }
+}
 
 .nsw-blue {
-    color: #002664;
+    color: $blue-01;
 }
 
 .nsw-green {
@@ -15,5 +29,5 @@
 }
 
 .nsw-red {
-    color: #D7153A;
+    color: $red-02;
 }

@@ -4,8 +4,8 @@
 
 <?= $this->section('content') ?>
 
-<?= form_open("request/update/" . $requestInformation[0]->id . "") ?>
-    <input type="hidden" name="principalrequestdetailsid" value="<?php echo $_SESSION['principalrequestdetailsid']; ?>" />
+<?= form_open("request/update/" . $request_information[0]->id . "") ?>
+    <input type="hidden" name="principal_request_id" value="<?php echo $_SESSION['principal_request_id']; ?>" />
     <div class="nsw-m-bottom-sm" tabindex="0">
         <table>
             <thead>
@@ -14,20 +14,20 @@
                 </tr>
             </thead>
             <tr>
-                <td width="50%"><label class="nsw-form__label" for="requestrank">Rank your request/s in order of priority (1 being the top priority)</label></td>
-                <td width="50%"><input class="nsw-form__input" maxlength="9" type="number" id="form-text-1" name="requestrank" value="<?php echo $requestInformation[0]->requestrank ?>"></td>
+                <td width="50%"><label class="nsw-form__label" for="request_rank">Rank your request/s in order of priority (1 being the top priority)</label></td>
+                <td width="50%"><input class="nsw-form__input" maxlength="9" type="number" id="form-text-1" name="request_rank" value="<?php echo $request_information[0]->request_rank ?>"></td>
             </tr>
             <tr>
-                <td><label class="nsw-form__label" for="requesttitle">Short Request Title</label></td>
-                <td><input class="nsw-form__input" type="text" id="requestrank" name="requesttitle" value="<?php echo $requestInformation[0]->requesttitle ?>"></td>
+                <td><label class="nsw-form__label" for="request_title">Short Request Title</label></td>
+                <td><input class="nsw-form__input" type="text" id="request_rank" name="request_title" value="<?php echo $request_information[0]->request_title ?>"></td>
             </tr>
             <tr>
                 <td>
-                    <label class="nsw-form__label" for="fundsource">Leading Funding Source</label>
+                    <label class="nsw-form__label" for="fund_source">Leading Funding Source</label>
                 </td>
                 <td>
                     <div class="nsw-form__group">
-                        <select class="nsw-form__select" id="fundsource" name="fundsource" required>
+                        <select class="nsw-form__select" id="fund_source" name="fund_source" required>
                             <option value="">Please select</option>  
                             <option value="Staffing Entitlement Funding">Staffing Entitlement Funding</option>
                             <option value="Equity Funding">Equity Funding</option>
@@ -41,10 +41,10 @@
             </tr>
             <tr>
                 <td>
-                    <label class="nsw-form__label" for="expenditurecategory">Most relevant expenditure category</label>
+                    <label class="nsw-form__label" for="expenditure_category">Most relevant expenditure category</label>
                 </td>
                 <td>
-                    <select class="nsw-form__select" id="expenditurecategory" name="expenditurecategory" required>
+                    <select class="nsw-form__select" id="expenditure_category" name="expenditure_category" required>
                         <option value="">Please select</option>  
                         <option value="Staffing Entitlement Funding">Teaching and Learning</option>
                         <option value="Property Maintenance">Property Maintenance</option>
@@ -57,15 +57,15 @@
             </tr>
             <tr>
                 <td>
-                    <label class="nsw-form__label" for="requestamount">Request Amount $</label> 
+                    <label class="nsw-form__label" for="request_amount">Request Amount $</label> 
                 </td>
                 <td>
-                    <input class="nsw-form__input" type="number" id="form-text-1" name="requestamount" value="<?php echo $requestInformation[0]->requestamount ?>" required>
+                    <input class="nsw-form__input" type="number" id="form-text-1" name="request_amount" value="<?php echo $request_information[0]->request_amount ?>" required>
                 </td>
             </tr>
             <tr>
-                <td><label class="nsw-form__label" for="requestreason">Reason for Request</label></td>
-                <td><textarea class="nsw-form__input" name="requestreason" id="form-textarea-1"><?php echo esc($requestInformation[0]->requestreason) ?></textarea></td>
+                <td><label class="nsw-form__label" for="request_reason">Reason for Request</label></td>
+                <td><textarea class="nsw-form__input" name="request_reason" id="form-textarea-1"><?php echo esc($request_information[0]->request_reason) ?></textarea></td>
             </tr>
         </table>
     </div>
@@ -79,8 +79,8 @@
             element.value = valueToSelect;
         }
 
-        selectElement('fundsource', '<?php echo $requestInformation[0]->fundsource; ?>');
-        selectElement('expenditurecategory', '<?php echo $requestInformation[0]->expenditurecategory; ?>');
+        selectElement('fund_source', '<?php echo $request_information[0]->fund_source; ?>');
+        selectElement('expenditure_category', '<?php echo $request_information[0]->expenditure_category; ?>');
         
     </script>
 </form>

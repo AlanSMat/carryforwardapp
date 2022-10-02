@@ -16,36 +16,46 @@ class RequestInformation extends Migration
                 'unsigned' => true,
                 'auto_increment' => true
             ],            
-            'principalrequestdetailsid' => [
+            'principal_request_id' => [
                 'type' => 'int',
                 'null' => false,
                 'constraint' => '10'
             ],
-            'requestrank' => [
+            'schools_information_id' => [
+                'type' => 'int',
+                'null' => false,
+                'constraint' => '10'
+            ],
+            'principal_network_code' => [
+                'type' => 'int',
+                'null' => false,
+                'constraint' => '10'
+            ],
+            'request_rank' => [
                 'type' => 'int',
                 'null' => false,
                 'constraint' => '2'
             ],
-            'requesttitle' => [
+            'request_title' => [
                 'type' => 'varchar',
                 'null' => false,
                 'constraint' => '80'
             ],
-            'fundsource' => [
+            'fund_source' => [
                 'type' => 'varchar',
                 'null' => false,
                 'constraint' => '50'
             ],
-            'expenditurecategory' => [
+            'expenditure_category' => [
                 'type' => 'varchar',
                 'null' => false,
                 'constraint' => '50'
             ],
-            'requestreason' => [
+            'request_reason' => [
                 'type' => 'text',
                 'null' => false
             ],
-            'requestamount' => [
+            'request_amount' => [
                 'type' => 'int',
                 'null' => false,
                 'constraint' => '10'
@@ -56,17 +66,23 @@ class RequestInformation extends Migration
                 'constraint' => '10',
                 'default' => 'pending'
             ],
-            'directorresponse' => [
+            'director_response' => [
                 'type' => 'text',
                 'null' => true
+            ],
+            'director_processed' => [
+                'type' => 'int',
+                'null' => false,
+                'default' => 0,
+                'constraint' => '1',
             ]
         ]);
 
         $this->forge->addPrimaryKey('id');
-        $this->forge->createTable('RequestInformation');
+        $this->forge->createTable('request_information');
     }
 
     public function down() {
-        $this->forge->dropTable('RequestInformation');
+        $this->forge->dropTable('request_information');
     }
 }

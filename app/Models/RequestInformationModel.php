@@ -4,17 +4,20 @@ namespace App\Models;
 
 class RequestInformationModel extends \CodeIgniter\Model
 {
-    protected $table = 'RequestInformation';
+    protected $table = 'request_information';
     protected $primaryKey = 'id';
-    //protected $returnType = 'array';
-
-    protected $allowedFields = ['principalrequestdetailsid',
-                                'requestrank',
-                                'requesttitle',
-                                'fundsource',
-                                'expenditurecategory',
-                                'requestamount',
-                                'requestreason',
+    
+    protected $allowedFields = ['principal_request_id',
+                                'schools_information_id',
+                                'principal_network_code',
+                                'request_rank',
+                                'request_title',
+                                'fund_source',
+                                'expenditure_category',
+                                'request_amount',
+                                'request_reason',
                                 'status',
-                                'directorresponse'];
+                                'director_response',
+                                'director_processed'
+                            ];
 }

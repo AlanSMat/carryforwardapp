@@ -24,34 +24,40 @@ class Data extends BaseController
         fclose($schoolDataFile);    
         return $line_of_text;    
     }
-
-    public function importcsv()
+    
+    public function importSchoolsInformationFromCSV($isUpdate = true)
     {
-        $schoolsModel = new \App\Models\SchoolsModel;
+        $schoolsModel = new \App\Models\SchoolsInformationModel;
 
-        $schoolDataCSV = APPPATH . "/schools2.csv";
+        $schoolDataCSV = APPPATH . "csv/schools.csv";
         $schoolDataFile = fopen($schoolDataCSV,"r");
 
+        $db = \Config\Database::connect();
+        $builder = $db->table('schools_information');
+
         $i = 0;
-        while (($data = fgetcsv($schoolDataFile)) !== FALSE) {
+        while (($csvCell = fgetcsv($schoolDataFile)) !== FALSE) {
             if($i !== 0) {
-                if($data[79] !== '') {
-                    $schoolsModel->insert([         
-                        'schoolcode' => $data[0],         
-                        'schoolname' => $data[1],         
-                        'schoolshortname' => $data[3],         
-                        'postcode' => $data[5],         
-                        'suburb' => $data[8],         
-                        'region' => $data[10],
-                        'schoolperformancedirectorate' => $data[22],
-                        'schoolemail' => $data[48],         
-                        'principalname' => $data[76],         
-                        'principalemail' => $data[77],         
-                        'schoolplanningregion' => $data[78],         
-                        'primaryclustercode' => $data[79], 
-                        'primaryclustername' => $data[80], 
-                        'primaryclusterregion' => $data[81],         
-                    ]);
+                if($csvCell[79] !== '') {                    
+                    $schoolsData = [         
+                        'school_code' => $csvCell[0],         
+                        'school_name' => $csvCell[1],         
+                        'school_short_name' => $csvCell[3],         
+                        'postcode' => $csvCell[5],         
+                        'suburb' => $csvCell[8],         
+                        'region' => $csvCell[10],
+                        'phone1' => $csvCell[45],
+                        'phone2' => $csvCell[46],                            
+                        'school_email' => $csvCell[48],         
+                        'principal_network_code' => $csvCell[74],
+                    ];
+                    if(!$isUpdate) {
+                        $schoolsModel->insert($schoolsData);
+                    } else {
+                        $builder->set($schoolsData)
+                                ->where('school_code',$csvCell[0])
+                                ->update();
+                    }
                 }
             }
             $i++;
