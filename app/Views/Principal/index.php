@@ -5,7 +5,7 @@
 <?= $this->section('content') ?>
 
 
-    <div class="nsw-hero-banner nsw-hero-banner--wide drop-shadow bg-color-grey-04">
+    <div class="hero-banner xdrop-shadow bg-color-grey-04">
         <div class="nsw-hero-banner__container">
             <div class="inner-box">
                 <div style="margin-top: 10px" class="pb-5">

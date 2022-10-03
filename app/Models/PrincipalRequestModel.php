@@ -17,4 +17,9 @@ class PrincipalRequestModel extends \CodeIgniter\Model
                                 'is_questionnaire_completed',
                                 'is_completed',
                                 'del_sign_off'];
+
+    public function getPrincipalRequestById($id) 
+    {
+        return $this->where('id',$id);
+    }
 }

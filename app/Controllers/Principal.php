@@ -63,8 +63,7 @@ class Principal extends BaseController
             if($requestInformation['isquestionnarecompleted']) {    
 
                 // redirect to the request list page
-                return redirect()->to("request/list/" . $_SESSION['principal_request_id'] ."")
-                                 ->with('info-message','Your request has been updated successfully');
+                return redirect()->to("request/list/" . $_SESSION['principal_request_id'] ."");
             }
 
             // the questionnaire has not been completed for this request, redirect to the questionnaire index page

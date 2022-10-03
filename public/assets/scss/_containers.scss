@@ -32,7 +32,7 @@ table {
     td {
         border-bottom: 1px solid #999;
         padding: 12px 8px 12px 12px;
-        
+
         .nsw-form__input,
         .nsw-form__select {
             border: 1px solid #999;
@@ -61,34 +61,40 @@ table {
             }
         }
     }
-    
+
 
 }
 
 .inner-box {
-    padding: 1.5em 1.5em 1.5em 1.5em ;
-    
+    padding: 1.5em 1.5em 1.5em 1.5em;
+
+}
+
+.hero-banner {
+    border: 1px solid $grey-03;
+    border-radius: 3px;
 }
 
 .drop-shadow {
-    filter: drop-shadow(0px 2px 3px $grey-03);
+    filter: drop-shadow(2px 3px 3px $grey-03);
 }
 
 .modal--principal-information {
     padding: 0;
     width: 38em;
     border: 1px solid $blue-01;
-    box-shadow: 0 0 1em rgb(0 0 0 / .3);       
-    
+    box-shadow: 0 0 1em rgb(0 0 0 / .3);
+
     table {
         th {
             text-align: center;
         }
+
         tr {
             td {
                 width: 50%;
             }
-        }        
+        }
     }
 
     &::backdrop {
@@ -108,11 +114,12 @@ table {
     border: 1px solid $blue-01;
     box-shadow: 0 0 1em rgb(0 0 0 / .3);
     //background-color: $grey-04;
-    
+
     table {
         th {
             text-align: center;
         }
+
         tr {
             td {
                 background-color: #fff;
